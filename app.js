@@ -1,136 +1,41 @@
-// var nd = require('needle')
-// var url = "https://jsonplaceholder.typicode.com/todos/1"
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err)
-//     }
-//     else{
-//         console.log(body)
-//     }
-// })
-// https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page=1
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-// var nd = require('needle')
-// var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page=1"
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err) 
-//     }
-//     else{
-//         console.log(body)
-//     }      
-// })
+var app = express();
 
-//
-// var nd = require('needle')
-// var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page=1"
-// nd.get(url,(err,respone,body)=>{
-//      if(err)
-//      console.log(err)
-//        else{
-//            var results =body.results
-//            for(ele in results)
-//               console.log(results[ele].title)
-//        }
-//     })
-//https://api.mapbox.com/geocoding/v5/mapbox.places/San%20Francisco.json?access_token=pk.eyJ1IjoibGlraGl0aGEtZGFuZHUiLCJhIjoiY2wzbzBxMjc3MGp4NzNldXZqdXA1ZG5zMyJ9.H0dzqH8TPgXCWJmBxeImgQ
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-// var nd = require('needle')
-// var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/San%20Francisco.json?access_token=pk.eyJ1IjoibGlraGl0aGEtZGFuZHUiLCJhIjoiY2wzbzBxMjc3MGp4NzNldXZqdXA1ZG5zMyJ9.H0dzqH8TPgXCWJmBxeImgQ"
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err) 
-//     }
-//     else{
-//         console.log(JSON.parse(body))
-//     }
-// })
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-//e65ef58cea89ce97de90933154743d00
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-//http://api.weatherstack.com/current?access_key="e65ef58cea89ce97de90933154743d00"&query="New York"
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
-// var nd = require('needle')
-// var url = "http://api.weatherstack.com/current?access_key=e65ef58cea89ce97de90933154743d00&query=New York"
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err) 
-//     }
-//     else{
-//         console.log(body)
-//     }      
-// })
-
-// var nd = require('needle')
-// var url = "http://api.weatherstack.com/current?access_key=e65ef58cea89ce97de90933154743d00&query=Bhimavaram"
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err) 
-//     }
-//     else{
-//         console.log(body)
-//     }      
-// })
-
-// var nd = require('needle')
-// var url = "http://api.weatherstack.com/current?access_key=e65ef58cea89ce97de90933154743d00&query=Bhimavaram"
-// nd.get (url,(err,response,body)=>{
-//     if(err){
-//         console.log(err) 
-//     }
-//     else{
-//         console.log(body.current.temperature)
-//         console.log(body.location.lat)
-//         console.log(body.location.lon)
-//         var desc = body.current.weather_descriptions
-//         for(ele in desc)
-//           console.log(desc[ele])
-//     }      
-// })
-
-// var nd = require('needle')
-// for(var i = 0; i< 500;i++){
-//    var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page="+i
-// nd.get(url,(err,respone,body)=>{
-//      if(err)
-//      console.log(err)
-//        else{
-//               var results =body.results
-//            for(ele in results)
-//               console.log(results[ele].title)
-//        }
-//     })
-// }
-
-// var nd = require('needle')
-// for(var i = 0; i< 500;i++){
-//    var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page="+i
-// nd.get(url,(err,respone,body)=>{
-//      if(err)
-//      console.log(err)
-//        else{
-//               var results =body.results
-//            for(ele in results)
-//               if(results[ele].original_language == 'hi')
-//                   console.log(results[ele].title)
-//        }
-//     })
-// }
-
-var nd = require('needle')
-for(var i = 0; i< 500;i++){
-   var url = "https://api.themoviedb.org/3/movie/top_rated?api_key=564e8a53525de43f0e3d30b331c41f5f&language=en-US&page="+i
-nd.get(url,(err,respone,body)=>{
-     if(err)
-     console.log(err)
-       else{
-              var results =body.results
-           for(ele in results)
-              if(results[ele].original_language == 'te')
-                  console.log(results[ele].title)
-       }
-    })
-}
+module.exports = app;

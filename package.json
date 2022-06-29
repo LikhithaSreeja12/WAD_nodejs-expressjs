@@ -1,15 +1,14 @@
 {
-  "name": "weatherapp",
+  "name": "requestdemo",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "sreeja",
   "license": "ISC",
   "dependencies": {
-    "needle": "^3.1.0",
-    "request": "^2.88.2"
+    "needle": "^3.1.0"
   }
 }
